@@ -63,9 +63,40 @@ fun linearContains(value:Int, numbers:List<Int>):Boolean{
     }
     return false
 }
+fun pseudoBinaryContains(value:Int, numbers:List<Int>): Boolean {
+    if(numbers.isEmpty()) return false
+    val middleIndex = numbers.size
+    if(value <= numbers[middleIndex]){
+        for(index in 0..middleIndex){
+            if(numbers[index] == value){
+                return true
+            }
+        }
+    } else{
+        for(index in middleIndex until numbers.size){
+            return true
+        }
+    }
+   return false
+}
 
+//https://github.com/Reptilefury/Data_Structures_Kotlin.git
+fun sumFromOne(n:Int):Int{
+    var result = 0
+    for(i in 1..n){
+        result += i
+    }
+    return result
+}
+fun sumFromTwo(n:Int):Int{
+    return (1..n).reduce{sum, element -> sum + element
+    }
+}
+fun sumFromThree(n:Int):Int{
+    return n * (n + 1) /2
+}
 fun main(){
-    fun multiplicationBoard(size:Int){
+  /*  fun multiplicationBoard(size:Int){
         for(number in 1..size){
             println("|")
             for(otherNumber in 1..size){
@@ -74,8 +105,12 @@ fun main(){
             println()
         }
 
-    }
-    multiplicationBoard(4)
+    }*/
+
+    var add = sumFromOne(10000)
+    //sumFromOne(10000)
+   println(add)
+// multiplicationBoard(4)
  /*   multiplicationBoard(4)
     scores["Andrew"] = 0
     mutablePlaces.add("Kiambu")
@@ -94,3 +129,4 @@ fun main(){
     }*/
 
 }
+
