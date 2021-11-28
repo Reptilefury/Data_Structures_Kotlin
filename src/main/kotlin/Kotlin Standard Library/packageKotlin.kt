@@ -88,28 +88,74 @@ fun sumFromOne(n:Int):Int{
     }
     return result
 }
-fun sumFromTwo(n:Int):Int{
-    return (1..n).reduce{sum, element -> sum + element
+
+fun sumFromTwo(n: Int): Int {
+    return (1..n).reduce { sum, element ->
+        sum + element
     }
 }
-fun sumFromThree(n:Int):Int{
-    return n * (n + 1) /2
+
+fun sumFromThree(n: Int): Int {
+    return n * (n + 1) / 2
 }
-fun main(){
-  /*  fun multiplicationBoard(size:Int){
-        for(number in 1..size){
-            println("|")
-            for(otherNumber in 1..size){
-                println("$otherNumber x $number = ${otherNumber * number }")
-            }
-            println()
+
+fun printSorted(numbers: List<Int>){
+    val sort = numbers.sorted()
+    for(element in sort){
+        println(element)
+    }
+}
+fun printSorted1(numbers: List<Int>){
+    if(numbers.isEmpty()) return
+
+    var currentCount = 0
+    var minValue = Int.MIN_VALUE
+    for(value in numbers){
+        if(value == minValue){
+            println(value)
+            currentCount += 1
         }
+    }
+    while(currentCount < numbers.size){
+        var currentValue = numbers.maxOrNull()!!
+        for(value in numbers){
+            if(value < currentValue && value > minValue){
+                currentValue = value
+            }
+        }
+        for(value in numbers){
+            if(value == currentValue){
+                println(value)
+                currentCount += 1
+            }
+        }
+        minValue = currentValue
+    }
 
-    }*/
+}
+fun main() {
 
-    var add = sumFromOne(10000)
+    val list = listOf(0,6,8,9,2,5,3,4,1)
+
+    return printSorted(list)
+
+    //var list = listOf(3,2,6)
+  //  printSorted(list)
+    //return printSorted(list)
+    /*  fun multiplicationBoard(size:Int){
+          for(number in 1..size){
+              println("|")
+              for(otherNumber in 1..size){
+                  println("$otherNumber x $number = ${otherNumber * number }")
+              }
+              println()
+          }
+
+      }*/
+
+   // var add = sumFromOne(10000)
     //sumFromOne(10000)
-   println(add)
+  // println(add)
 // multiplicationBoard(4)
  /*   multiplicationBoard(4)
     scores["Andrew"] = 0
