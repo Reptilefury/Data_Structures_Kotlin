@@ -22,6 +22,7 @@ data class Node<T>(var value: T, var next: Node<T>? = null){
 fun main(){
 
     "creating and linking nodes" example{
+
         val node1 = Node(2 )
         val node2 = Node(3)
         val node3 = Node(4)
@@ -34,6 +35,19 @@ fun main(){
 
         println(node3)
 
+    }
+    "push" example {
+        val list = LinkedList<Int>()
+        list.push(3)
+        list.push(2)
+        list.push(1)
+
+        println(list)
+    }
+    "fluent interface" example {
+        val list = LinkedList<Int>()
+        list.push(3).push(2).push(1)
+        println(list)
     }
 }
 
