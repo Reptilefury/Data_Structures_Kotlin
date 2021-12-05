@@ -49,8 +49,29 @@ fun main(){
         list.push(3).push(2).push(1)
         println(list)
     }
-}
 
+    "append" example {
+        val list = LinkedList<Int>()
+        list.append(3)
+        list.append(2)
+        list.append(1)
+        println(list)
+    }
+    "Inserting at a particular index" example{
+        val list = LinkedList<Int>()
+        list.append(3)
+        list.append(2)
+        list.append(1)
+        print("Before inserting: $list")
+        var middleNode = list.NodeAt(1)!!
+        for(i  in 1..3){
+            middleNode = list.insert(-1 * i , middleNode)
+
+        }
+        println("After inserting: $list")
+
+    }
+}
 private infix fun Any.example(function: () -> Unit) {
  return function()
 }
