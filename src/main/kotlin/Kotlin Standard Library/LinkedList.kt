@@ -104,14 +104,42 @@ class LinkedList<T> {
         var prev = head
         var current = head
         var next = current.next
-        while(next != null){
+        while (next != null) {
             prev = current
             current = next
-            next = current .next
+            next = current.next
         }
         prev.next = null
         tail = prev
-        return  current.value
+        return current.value
     }
+    /*  fun removeAfter(node:Node<T>):T?{
+           val result = node.next?.value
+          if(node == tail){
+              tail = node
+          }
+           if(node.next != null){
+               size--
+           }
+       node.next = node.next?.next
+      return  result
+      }
+  */
+    fun removeAfter(node:Node<T>):T?{
+        val result = node.next?.value
+        if(node.next == tail){
+            tail = node
+        }
+        if(node.next != null){
+            size--
+        }
+        node.next = node.next?.next
+        return  result
+
+
+    }
+
+
+
 
 }
