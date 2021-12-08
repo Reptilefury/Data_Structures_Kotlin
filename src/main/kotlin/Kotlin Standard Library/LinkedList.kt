@@ -1,6 +1,16 @@
 package `Kotlin Standard Library`
 
-class LinkedList<T> {
+import javax.swing.text.html.HTMLDocument
+
+var size = 0
+    private set
+
+class LinkedList<T>:Iterable<T> {
+
+    override fun iterator(): Iterator<T> {
+        return  LinkedListIterator(this)
+
+    }
     private var head: T? = null
     private var tail: T? = null
     private var size = 0
@@ -140,6 +150,18 @@ class LinkedList<T> {
     }
 
 
+
+
+}
+class  LinkedListIterator<T>:Iterator<T>{
+
+    override fun next(): T {
+        TODO("Not yet implemented")
+    }
+
+    override fun hasNext(): Boolean {
+        TODO("Not yet implemented")
+    }
 
 
 }

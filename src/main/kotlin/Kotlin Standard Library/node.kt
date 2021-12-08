@@ -107,7 +107,6 @@ fun main(){
 
     }
 
-
 }
 private infix fun Any.example(function: () -> Unit) {
  return function()
