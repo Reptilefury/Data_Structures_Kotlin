@@ -5,7 +5,7 @@ import javax.swing.text.html.HTMLDocument
 var size = 0
     private set
 
-class LinkedList<T>:Iterable<T> {
+class LinkedList<T>:Iterable<T>, Collection<T> {
 
     override fun iterator(): Iterator<T> {
         return  LinkedListIterator(this)
@@ -13,9 +13,9 @@ class LinkedList<T>:Iterable<T> {
     }
     private var head: T? = null
     private var tail: T? = null
-    private var size = 0
+  override  var size = 0
 
-    fun isEmpty(): Boolean {
+   override fun isEmpty(): Boolean {
         return size == 0
     }
 
@@ -46,7 +46,7 @@ class LinkedList<T>:Iterable<T> {
         size++
     }
 
-    fun NodeAt(index: Int): T? {
+    fun NodeAt(index: Int): Node<T> {
         var currentNode = head
         var currentIndex = index
 
@@ -149,18 +149,41 @@ class LinkedList<T>:Iterable<T> {
 
     }
 
+    override fun contains(element: T): Boolean {
+        for(item  in  this){
+            if(item == element) return  true
+        }
+        return  false
+    }
 
+    override fun containsAll(elements: Collection<T>): Boolean {
+      for (searched in elements){
+          if (!contains(searched))return  false
+      }
+        return  true
+    }
 
 
 }
-class  LinkedListIterator<T>:Iterator<T>{
-
+class  LinkedListIterator<T>(private val list:LinkedList<T>):Iterator<T>{
+private var lastNode:Node<T>?=null
+     private var index = 0
     override fun next(): T {
-        TODO("Not yet implemented")
+        if (index >= list.size) throw IndexOutOfBoundsException()
+        lastNode = if (index == 0){
+            list.NodeAt(0)
+        } else{
+            lastNode?.next
+        }
+       index++
+
+        return  lastNode!!.value
+
     }
 
     override fun hasNext(): Boolean {
-        TODO("Not yet implemented")
+        return index< list.size
+
     }
 
 
