@@ -5,9 +5,10 @@ import javax.swing.text.html.HTMLDocument
 var size = 0
     private set
 
-class LinkedList<T>:Iterable<T>, Collection<T> {
+class LinkedList<T>:Iterable<T>, Collection<T>,MutableIterator<T>, MutableCollection<T>{
 
-    override fun iterator(): Iterator<T> {
+
+    override fun iterator(): MutableIterator<T> {
         return  LinkedListIterator(this)
 
     }
@@ -163,9 +164,62 @@ class LinkedList<T>:Iterable<T>, Collection<T> {
         return  true
     }
 
+    override fun add(element: T): Boolean {
+        append(element)
+        return true
+    }
+
+    override fun addAll(elements: Collection<T>): Boolean {
+        for(element in elements){
+                append(element)
+            }
+        return true
+    }
+
+
+    override fun clear() {
+
+         head = null
+         tail = null
+         size = 0
+    }
+
+    override fun remove(element: T): Boolean {
+
+    val iterator = iterator()
+        while(iterator.hasNext()){
+            val item = iterator.next()
+            if(item == element){
+                iterator.remove()
+                return  true
+            }
+        }
+        return false
+    }
+
+    override fun removeAll(elements: Collection<T>): Boolean {
+     var result = false
+        for (item in elements){
+            result = remove(item)|| result
+        }
+        return result
+    }
+    override fun retainAll(elements: Collection<T>): Boolean {
+    var result = false
+       val iterator = this.iterator()
+        while (iterator.hasNext()){
+            val iterator = iterator.next()
+            if(!elements.contains(item)){
+                iterator.remove()
+                result = true
+            }
+        }
+        return  result
+    }
+
 
 }
-class  LinkedListIterator<T>(private val list:LinkedList<T>):Iterator<T>{
+class  LinkedListIterator<T>(private val list:LinkedList<T>):Iterator<T>,MutableIterator<T>{
 private var lastNode:Node<T>?=null
      private var index = 0
     override fun next(): T {
@@ -186,5 +240,13 @@ private var lastNode:Node<T>?=null
 
     }
 
-
+    override fun remove() {
+        if(index == 1){
+            list.pop()
+        } else{
+            val prevNode = list.NodeAt(index -2)?: return
+            list.removeAfter(prevNode)
+        }
+        index--
+    }
 }
