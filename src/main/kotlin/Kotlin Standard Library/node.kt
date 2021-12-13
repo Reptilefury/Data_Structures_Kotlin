@@ -10,10 +10,10 @@ data class Node<T>(var value: T, var next: Node<T>?=null){
         }
     }
 }*/
-data class Node<T>(var value: T, var next: Node<T>? = null){
-    override fun toString():String{
-        return if(next != null){
-            "$value -> ${value.toString()}"
+data class Node<T : Any>(var value: T, var next: Node<T>? = null) {
+    override fun toString(): String {
+        return if (next != null) {
+            "$value -> ${next.toString()}"
         } else {
             "$value"
         }
@@ -64,7 +64,7 @@ fun main(){
         list.append(2)
         list.append(1)
         print("Before inserting: $list")
-        var middleNode = list.NodeAt(1)!!
+        var middleNode = list.nodeAt(1)!!
         for(i  in 1..3){
             middleNode = list.insert(-1 * i , middleNode)
 
@@ -101,7 +101,7 @@ fun main(){
         list.push(1)
         println("Before removing at a particular index: $list")
         val index = 1
-        val node = list.NodeAt(index - 1)!!
+        val node = list.nodeAt(index - 1)!!
         val removedValue = list.removeAfter(node)
         println("After removing at index $index: $list")
         println("Removed value: $removedValue")
