@@ -13,8 +13,31 @@ interface Stack<Element>{
 
 
 }
+
+
 class  StackImpl<T:Any>:Stack<T>{
-private val storage = arrayListOf<T>()
+  /*  companion object {
+        fun <Element : Any> create(items: Iterable<Element>): Stack<Element> {
+            val stack = StackImpl<Element>()
+            for (item in items) {
+                stack.push(item)
+            }
+            return stack
+        }
+    }
+*/
+companion object{
+    fun <Element:Any> create(items:Iterable<Element>):StackImpl<Element>{
+        val stack = StackImpl<Element>()
+        for (item in items){
+            stack.push(item)
+        }
+        return  stack
+    }
+}
+
+
+    private val storage = arrayListOf<T>()
     override fun toString() = buildString {
         appendln("-----top------")
         storage.asReversed().forEach {
@@ -22,7 +45,8 @@ private val storage = arrayListOf<T>()
         }
         appendln("-------")
     }
-    override fun push(element:T){
+
+    override fun push(element: T) {
         storage.add(element)
     }
     override fun pop(): T? {
@@ -46,4 +70,11 @@ private val storage = arrayListOf<T>()
         get() = storage.size
 
 
+}
+/*fun <Element> stackOf(vararg elements: Element):Stack<Element>{
+    return  StackImpl.create(elements.asList())
+}*/
+
+fun <Element:Any> stackOf(vararg  elements:Element):Stack<Element>{
+    return  StackImpl.create(elements.asList())
 }
