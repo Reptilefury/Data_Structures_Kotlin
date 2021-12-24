@@ -1,3 +1,4 @@
+package `Kotlin Standard Library`.DoubleStack/*
 package `Kotlin Standard Library`.DoubleStack
 
 import `Kotlin Standard Library`.StackImpl
@@ -61,3 +62,4 @@ fun main(){
 
     }
 }
+*/

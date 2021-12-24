@@ -1,3 +1,4 @@
+package `Kotlin Standard Library`.Challenge1/*
 package `Kotlin Standard Library`.Challenge1
 
 import `Kotlin Standard Library`.DoubleStack.StackImpl
@@ -17,4 +18,4 @@ fun <T:Any> Queue<T>.reverse(){
         next = aux.pop()
     }
 
-}
+}*/
