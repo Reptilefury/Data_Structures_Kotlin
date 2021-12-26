@@ -1,15 +1,41 @@
 package `Kotlin Standard Library`.Trees
 
-class TreeNode<T>(val value: T){
-    private val children:MutableList<TreeNode<T>> = mutableListOf()
-    fun add(child:TreeNode<T>) = children.add(child)
-    fun forEachDepthFirst(visit:Visitor<T>){
-      visit(this)
-        children.forEach{
+import `Kotlin Standard Library`.Queue
+
+class TreeNode<T>(val value: T) {
+    private val children: MutableList<TreeNode<T>> = mutableListOf()
+    fun add(child: TreeNode<T>) = children.add(child)
+    fun forEachDepthFirst(visit: Visitor<T>) {
+        visit(this)
+        children.forEach {
             it.forEachDepthFirst(visit)
         }
     }
+
+    fun levelOrderTraversal(visit: Visitor<T>) {
+        visit(this)
+        val queue = Queue<TreeNode<T>>()
+        children.forEach { queue.enqueue(it) }
+        var node = queue.dequeue()
+        while (node != null) {
+            visit(node)
+            node.children.forEach{queue.enqueue(it)}
+            node = queue.dequeue()
+        }
+    }
+
+    fun search(value: T): TreeNode<T>? {
+        var result: TreeNode<T>? = null
+        forEachlevelOrder {
+            if (it.value == value) {
+                result = it
+            }
+        }
+        return result
+    }
+
 }
+
 
 typealias Visitor<T> = (TreeNode<T>) -> Unit
 
@@ -17,9 +43,9 @@ fun main(){
 
     fun makeBeverage():TreeNode<String>{
         val tree = TreeNode("Beverages")
+
         val hot = TreeNode("Hot")
         val cold = TreeNode("Cold")
-
 
         val tea  = TreeNode("Tea")
         val coffee = TreeNode("Coffee")
@@ -56,6 +82,7 @@ fun main(){
         return  tree
 
     }
+
     val Hot = TreeNode("Hot")
     val Cold = TreeNode("Cold")
     val alcohol = TreeNode("Vodka")
@@ -69,14 +96,20 @@ fun main(){
     }
 
 
-    val Drinks =TreeNode("BestServedCold").run {
+    val Drinks = TreeNode("BestServedCold").run {
 
         alcohol.add(alcohol)
         brandy.add(brandy)
         whisky.add(whisky)
         softDrinks.add(softDrinks)
     }
-
     val tree = makeBeverage()
-    tree.forEachDepthFirst {println(it.value)}
+    tree.forEachDepthFirst { println(it.value) }
+    tree.forEachlevelOrder { println(it.value) }
+    tree.search("ginger ale")?.let {
+        println("Found Node: ${it.value}")
+    }
+    tree.search("WKD Blue")?.let {
+        println(it.value)
+    }?: println("WKD blue")
 }
