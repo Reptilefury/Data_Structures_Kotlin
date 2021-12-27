@@ -1,6 +1,6 @@
 package `Kotlin Standard Library`.Trees
 
-import `Kotlin Standard Library`.Queue
+import `Kotlin Standard Library`.ArrayListQueue
 
 class TreeNode<T>(val value: T) {
     private val children: MutableList<TreeNode<T>> = mutableListOf()
@@ -12,15 +12,35 @@ class TreeNode<T>(val value: T) {
         }
     }
 
-    fun levelOrderTraversal(visit: Visitor<T>) {
+    fun forEachlevelOrder(visit: Visitor<T>) {
         visit(this)
-        val queue = Queue<TreeNode<T>>()
+        val queue = ArrayListQueue<TreeNode<T>>()
         children.forEach { queue.enqueue(it) }
         var node = queue.dequeue()
         while (node != null) {
             visit(node)
             node.children.forEach{queue.enqueue(it)}
             node = queue.dequeue()
+        }
+    }
+    fun printEachLevel(){
+        val queue = ArrayListQueue<TreeNode<T>>()
+        var nodesLeftInCurrentLevel = 0
+
+        queue.enqueue(this)
+        while (queue.isEmpty.not()){
+            nodesLeftInCurrentLevel = queue.count
+            while (nodesLeftInCurrentLevel > 0){
+                val node = queue.dequeue()
+                node?.let {
+                    print("${node.value}")
+                    node.children.forEach{
+                        queue.enqueue(it)
+                    }
+                    nodesLeftInCurrentLevel--
+                }?:break
+            }
+            println()
         }
     }
 
@@ -83,6 +103,8 @@ fun main(){
 
     }
 
+
+
     val Hot = TreeNode("Hot")
     val Cold = TreeNode("Cold")
     val alcohol = TreeNode("Vodka")
@@ -97,7 +119,6 @@ fun main(){
 
 
     val Drinks = TreeNode("BestServedCold").run {
-
         alcohol.add(alcohol)
         brandy.add(brandy)
         whisky.add(whisky)
