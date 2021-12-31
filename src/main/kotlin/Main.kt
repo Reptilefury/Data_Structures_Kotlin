@@ -1,11 +1,9 @@
-import javax.swing.event.TableModelListener
-
 val a = 5
 val b = 12
 var max = -1
 
 
-fun max(a: Int, b: Int):Int {
+fun max(a: Unit, b: Unit):Int {
     return if(a>b) a else b
 }
 fun printMax(c:Int, d:Int){

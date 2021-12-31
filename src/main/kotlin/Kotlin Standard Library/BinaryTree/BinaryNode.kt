@@ -1,7 +1,6 @@
 package `Kotlin Standard Library`.BinaryTree
 
-import `Kotlin Standard Library`.Trees.TreeNode
-import `Kotlin Standard Library`.ArrayListQueue
+import max
 
 typealias  Visitor<T> = (T) -> Unit
 
@@ -50,6 +49,15 @@ class BinaryNode<T>(val value: T) {
         rightChild?.traversePostOrder(visit)
         visit(value)
     }
+    fun height(node: BinaryNode<T>? = this){
+        return node.let {
+            if (node != null) {
+                1 + max(height(node.leftChild),
+                    height(node.rightChild)
+                )
+            } else -1
+        }
+    }
 }
 
 fun main() {
@@ -86,11 +94,10 @@ fun main() {
     println(tree)
 
     val tree2 = twentyOne
-  //  tree.traverseInOrder { println(it) }
-   // tree.preOrderTraversal { println(it) }
-   tree.traversePostOrder { println(it)}
+    //  tree.traverseInOrder { println(it) }
+    // tree.preOrderTraversal { println(it) }
+    tree.traversePostOrder { println(it) }
     println(tree2)
 
 }
-
 
