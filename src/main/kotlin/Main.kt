@@ -3,13 +3,13 @@ val b = 12
 var max = -1
 
 
-fun max(a: Unit, b: Unit):Int {
-    return if(a>b) a else b
+fun max(a: Unit, b: Unit) {
+   // return if(a>b) a else b
 }
-fun printMax(c:Int, d:Int){
+/*fun printMax(c:Int, d:Int){
     val  maxValue = max(c,d)
 println(maxValue)
-}
+}*/
 class Box{
     var content:Any? = null
     fun Put(content:Any?){

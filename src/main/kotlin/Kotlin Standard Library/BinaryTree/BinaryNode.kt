@@ -51,11 +51,11 @@ class BinaryNode<T>(val value: T) {
     }
     fun height(node: BinaryNode<T>? = this){
         return node.let {
-            if (node != null) {
-                1 + max(height(node.leftChild),
+    /*        if (node != null) {
+            //    1 + max(height(node.leftChild),
                     height(node.rightChild)
                 )
-            } else -1
+            } else -1*/
         }
     }
 }
