@@ -1,16 +1,16 @@
 package `Kotlin Standard Library`.BinaryTree
 
-import max
+import `Kotlin Standard Library`.`Binary Search Tree`.BinarySearchTree
 
 typealias  Visitor<T> = (T) -> Unit
 
-class BinaryNode<T>(var value: T) {
+class BinaryNode<T : Comparable<T>>(var value: T) {
 
 
     var leftChild: BinaryNode<T>? = null
     var rightChild: BinaryNode<T>? = null
-    val min:BinaryNode<T>?
-    get() = leftChild?.min ?:this
+    val min: BinaryNode<T>?
+        get() = leftChild?.min ?: this
 
     override fun toString() = diagram(this)
 
@@ -46,20 +46,52 @@ class BinaryNode<T>(var value: T) {
 
     //Post order traversal We visit the children first and then we visit the Root node after the children have been visited first
 
-    fun traversePostOrder(visit:Visitor<T>){
+    fun traversePostOrder(visit: Visitor<T>) {
         leftChild?.traversePostOrder(visit)
         rightChild?.traversePostOrder(visit)
         visit(value)
     }
-    fun height(node: BinaryNode<T>? = this){
+
+    fun height(node: BinaryNode<T>? = this) {
         return node.let {
-    /*        if (node != null) {
-            //    1 + max(height(node.leftChild),
-                    height(node.rightChild)
-                )
-            } else -1*/
+            /*        if (node != null) {
+                    //    1 + max(height(node.leftChild),
+                            height(node.rightChild)
+                        )
+                    } else -1*/
         }
     }
+
+
+    val isBinarySearchTree: Boolean
+        get() = isBST(this, min = null, max = null)
+
+    private fun isBST(tree: BinaryNode<T>?, min: T?, max: T?): Boolean {
+
+        tree ?: return true
+        if (min != null && tree.value <= min) {
+            return false
+        } else if (max != null && tree.value > max) {
+            return false
+        }
+        return isBST(tree.leftChild, min, tree.value) && isBST(tree.rightChild, tree.value, max)
+
+
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return if (other != null && other is BinaryNode<*>) {
+            this.value == other.value &&
+                    this.leftChild == other.leftChild &&
+                    this.rightChild == other.rightChild
+        } else {
+            false
+        }
+    }
+
+
+
+
 }
 
 fun main() {
