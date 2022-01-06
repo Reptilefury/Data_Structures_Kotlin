@@ -1,5 +1,7 @@
 package `Kotlin Standard Library`.AVLTrees
 
+import kotlin.math.max
+
 class AVLTree<T : Comparable<T>> {
     var root: AVLNode<T>? = null
     fun insert(value: T) {
@@ -47,7 +49,6 @@ class AVLTree<T : Comparable<T>> {
         }
         return node
     }
-
     override fun toString() = root?.toString() ?: " empty tree"
     fun contains(value: T): Boolean {
         var current = root
@@ -57,7 +58,6 @@ class AVLTree<T : Comparable<T>> {
             if (current.value == value) {
                 return true
             }
-
             current = if (value < current.value) {
                 current.leftChild
             } else {
@@ -65,5 +65,21 @@ class AVLTree<T : Comparable<T>> {
             }
         }
         return false
+    }
+    private fun leftRotate(node: AVLNode<T>): AVLNode<T> {
+        val pivot = node.rightChild!!
+        node.rightChild = pivot.leftChild
+        pivot.leftChild = node
+        node.height = max(node.rightHeight, node.leftHeight) + 1
+        pivot.height = max(pivot.rightHeight, pivot.leftHeight) + 1
+        return pivot
+    }
+    private fun rightRotate(node: AVLNode<T>):AVLNode<T>{
+        val  pivot = node.leftChild!!
+        node.leftChild = pivot.rightChild
+        pivot.rightChild = node
+        node.height = max(node.leftHeight, node.rightHeight) +1
+        pivot.height = max(pivot.leftHeight, pivot.rightHeight) + 1
+        return  node
     }
 }
