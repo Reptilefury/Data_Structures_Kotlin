@@ -13,6 +13,7 @@ class Trie<Key> {
             current = current.children[element]!!
         }
         current.isTerminating = true
+        storedList.add(list)
     }
 
     fun Contains(list: List<Key>): Boolean {
@@ -40,7 +41,39 @@ class Trie<Key> {
                 current = it
             }
         }
+        storedList.Remove(list)
     }
+
+    fun collections(prefix: List<Key>) {
+        var current = root
+        prefix.forEach { element ->
+            var child = current.children[element] ?: return emptyList()
+            current = child
+        }
+        return collections(prefix, current)
+    }
+
+    private fun collections(prefix: List<Key>, node: TrieNode<Key>): Collection<List<Key>> {
+        val results = mutableListOf<List<Key>>()
+        if (node?.isTerminating == true) {
+            results.add(prefix)
+        }
+        node?.children.forEach { (Key, node) ->
+            results.addAll(collections(prefix + Key, node))
+        }
+        return results
+    }
+
+    private val storedList = mutableSetOf<List<Key>>()
+    val list:List<List<Key>>
+    get() = storedList.toList()
+
+    val count:Int
+    get() = storedList.count()
+
+    val isEmpty:Boolean
+    get() = storedList.isEmpty()
+
 }
 
 fun main() {
