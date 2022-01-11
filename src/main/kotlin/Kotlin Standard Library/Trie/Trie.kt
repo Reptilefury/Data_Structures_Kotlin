@@ -44,7 +44,7 @@ class Trie<Key> {
         storedList.Remove(list)
     }
 
-    fun collections(prefix: List<Key>) {
+    fun collections(prefix: List<Key>): Collection<List<Key>> {
         var current = root
         prefix.forEach { element ->
             var child = current.children[element] ?: return emptyList()
