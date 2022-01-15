@@ -23,4 +23,21 @@ class ComparatorHeapImpl<Element>(
     override fun peek(): Element? {
         TODO("Not yet implemented")
     }
+
+    companion object {
+
+        fun <Element> create(
+            elements: ArrayList<Element>,
+            comparator: Comparator<Element>
+        ):Heap<Element>{
+            val heap = ComparableHeapImpl(comparator)
+            heap.Heapify(elements)
+            return heap
+        }
+    }
 }
+
+
+
+
+

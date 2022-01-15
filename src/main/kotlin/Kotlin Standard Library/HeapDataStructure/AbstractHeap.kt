@@ -78,7 +78,43 @@ abstract class AbstractHeap<Element> : Heap<Element> {
            parent = parentIndex(child)
         }
     }
+    private fun Index(element: Element,i: Int): Int? {
+        if(i >= count){
+            return null
+        }
+        if(sort(element, elements[i])){
+            return null
+        }
+        if(element == elements[i]){
+            return  i
+        }
+        val leftChildIndex = Index(element, leftChildIndex(i))
+        if(leftChildIndex != null ) return leftChildIndex
+
+
+        val rightChildIndex = Index(element, rightChildIndex(i))
+        if(rightChildIndex != null) return  rightChildIndex
+
+        return null
+    }
+
+    protected fun heapify(values:ArrayList<Element>){
+        elements = values
+        if(!elements.isEmpty()){
+
+            (count /2 downTo 0).forEach {
+                siftDown(it)
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
 
 
 
