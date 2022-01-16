@@ -23,6 +23,8 @@ class ComparableHeapImpl<Element : Comparable<Element>>() : AbstractHeap<Element
         TODO("Not yet implemented")
     }
 
+
+
     companion object {
         fun <Element : Comparable<Element>> Create(elements: ArrayList<Element>): Heap<Element> {
             val heap = ComparableHeapImpl<Element>()
