@@ -3,7 +3,7 @@ package `Kotlin Standard Library`.Sorting.SelectionSort
 import `Kotlin Standard Library`.example
 import `Kotlin Standard Library`.swapAt
 
-fun <T : Comparable<T>> ArrayList<T>.selectionSort(showPasses: Boolean = false) {
+fun <T : Comparable<T>> MutableList<T>.selectionSort(showPasses: Boolean = false) {
     if (this.size < 2) return
     for (current in 0 until (this.size - 1)) {
         var lowest = current

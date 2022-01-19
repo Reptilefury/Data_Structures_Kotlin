@@ -1,12 +1,12 @@
 package `Kotlin Standard Library`
 
-fun <T> ArrayList<T>.swapAt(first: Int, second: Int) {
+fun <T> MutableList<T>.swapAt(first: Int, second: Int) {
     val aux = this[first]
     this[first] = this[second]
     this[second] = aux
 }
 
-fun <T : Comparable<T>> ArrayList<T>.bubbleSort(showPasses: Boolean = false) {
+fun <T : Comparable<T>> MutableList<T>.bubbleSort(showPasses: Boolean = false) {
     if (this.size < 2)
         return
     for (end in (1 until this.size).reversed()) {
