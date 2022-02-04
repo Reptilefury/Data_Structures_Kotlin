@@ -43,3 +43,65 @@ class AdjancencyMatrix<T> : Graph<T> {
     return  edges
     }
 }
+
+override fun toString(): String {
+    val verticesDescription= vertices.joinToString("\n"){"${it.index} {${it.data} }"  }
+
+    val grid = arrayListOf<String>()
+
+
+    weights.forEach {
+        var row = ""
+        (0 until weights.size).forEach {
+                columnIndex ->
+            if (columnIndex >= it.size){
+
+                row += "p\t\t"
+            } else {
+                row += it[columnIndex]?.let {"$it \t"}?:"o\t\t"
+
+            }
+        }
+        grid.add(row)
+    }
+    val edgeDescription = grid.joinToString("\n")
+    return "$verticesDescription \n\n $edgeDescription"
+}
+override fun  toString():String{
+    val verticesDescription = vertices
+        .joinToString("\n") {"${it.index} : ${it.data}"}
+}
+val grid = weights.map {
+        row ->
+    buildString {
+        (0 until weights.size).forEach{
+                columnIndex ->
+            val value = row[columnIndex]
+            if (value != null){
+                append("$value \t")
+            } else {
+                append("o\t\t")
+            }
+        }
+    }
+}
+val edgeDescription = grid.joinToString("\n")
+
+return "$verticesDescription \n\n $edgeDescription"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
