@@ -52,6 +52,26 @@ interface Graph<T> {
         stack.push(source)
         pushed.add(source)
         visited.add(source)
+        outer@ while (true) {
+            if (stack.isEmpty) break
+            val vertex = stack.peek()!!
+            val neighbors = edges(vertex)
+            if (neighbors.isEmpty()) {
+                stack.pop()
+                continue
+            }
+            for (i in 0 until neighbors.size) {
+                val destination = neighbors[i].destination
+                if (destination !in pushed) {
+                    stack.push(destination)
+                    pushed.add(destination)
+                    visited.add(destination)
+                    continue@outer
+                }
+            }
+
+            stack.pop()
+        }
 
         return visited
     }
@@ -64,13 +84,24 @@ enum class EdgeType {
 
 fun main() {
 
-    val vertices = Graph.breadthFirstSearch(a)
-
+    val vertices = Graph.depthFirstSearch(a)
     vertices.forEach {
         println(it.data)
     }
+
+    /* val vertices = Graph.breadthFirstSearch(a)
+
+     vertices.forEach {
+         println(it.data)
+     }*/
 }
 //DFS
+
+
+
+
+
+
 
 
 
